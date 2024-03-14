@@ -10,9 +10,11 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 #include <string>
-Class Library {
+class Library
+{
  private:
- struct Movie{
+ struct Movie
+ {
    std::string Title;
    std::string Director_Name;
    //calculated in minutes
@@ -20,21 +22,29 @@ Class Library {
    //Digital, DVD, Blu-ray, or VHS
    std::string Format;
    float Price;
-   int Year; 
- }
+   int Year;
 
+   Movie * next; //Points to the next movie, or to NULL.
+ };
+ Movie * head;
+ Movie * tail;
+ Movie * midpoint;
+ int number_of_movies;
+ 
  public:
- library();
- void push_back(std::string Title, std::string Director_Name, int Movie_Runtime, std::string Format, float Price, int Year);
- void push_front(std::string Title, std::string Director_Name, int Movie_Runtime, std::string Format, float Price, int Year);
+ Library();
+ void push_back(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year);
+ void push_front(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year);
  void load_from_file(std::string filename);
- void store_to_file(std::stirng filename);
- void insert_sorted(std::string Title, std::string Director_Name, int Movie_Runtime, std::string Format, float Price, int Year);
- std::string find_movie(std::string Title);
- std::string director_search(std::string Director_Name);
- void remove(std::string Title);
+ void store_to_file(std::string filename);
+ void insert_sorted(Movie * NewMovie); //used for when loading in a file.
+ void insert_sorted(std::string Sort_Tile, std::string Sort_Director_Name, int Sort_Movie_Runtime, std::string Sort_Format, float Sort_Price, int Sort_Year);
+ std::string find_movie(std::string Query_Title);
+ std::string director_search(std::string Query_Director_Name);
+ void remove(std::string Query_Title);
  void print();
- ~library(); 
+ void Insert_Sort(); //sorts the movies as it is being loaded in.
+ ~Library(); 
   
 }; 
   
