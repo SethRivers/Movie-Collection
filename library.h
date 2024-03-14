@@ -1,6 +1,6 @@
 /**
  * @file library.h
- * @author Seth Rivers
+ * @author Daemon Bytes
  * @date 2024-03-13
  * @brief The .h file for the Movie Collection. 
  * 
