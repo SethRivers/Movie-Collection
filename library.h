@@ -39,7 +39,7 @@ class Library
  void store_to_file(std::string filename);
  void insert_sorted(Movie * NewMovie); //used for when loading in a file.
  void insert_sorted(std::string Sort_Tile, std::string Sort_Director_Name, int Sort_Movie_Runtime, std::string Sort_Format, float Sort_Price, int Sort_Year);
- std::string find_movie(std::string Query_Title);
+ void find_movie(std::string Query_Title);
  std::string director_search(std::string Query_Director_Name);
  void remove(std::string Query_Title);
  void print();

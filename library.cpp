@@ -68,7 +68,7 @@ void Library::push_back(std::string New_Title, std::string New_Director_Name, in
     }
 }
 
-void Library::load_from_file(string filename)
+void Library::load_from_file(string filename) //TODO: Fix the while loop.
 {
   //All data (Temp variables) used when inserting the list from a file.
   ifstream File(filename);
@@ -76,7 +76,7 @@ void Library::load_from_file(string filename)
   int Temp_Movie_Runtime, Temp_Year = 0;
   float Temp_Price = 0;
   //char dummy = 'i'; //DEBUGGER for the Debugging section.
-  while(File >> Temp_Title >> Temp_Director >> Temp_Format >> Temp_Movie_Runtime >> Temp_Year >> Temp_Price)
+  while(getline(File, Temp_Title)) //TODO: Fix the condition to load the file properly.
     {
       Movie * NewMovie = new Movie;
       NewMovie->Title = Temp_Title;
@@ -84,7 +84,7 @@ void Library::load_from_file(string filename)
       NewMovie->Movie_Runtime = Temp_Movie_Runtime;
       NewMovie->Year = Temp_Year;
       NewMovie->Price = Temp_Price;
-      //insert_sorted(NewMovie); //Takes the movie and automatically movie, and finds the appropriate place alphabetically to insert in the list. 
+      insert_sorted(NewMovie); //Takes the movie and automatically movie, and finds the appropriate place alphabetically to insert in the list. 
 
 
 
@@ -103,4 +103,56 @@ void Library::load_from_file(string filename)
       //i++;
     }
   File.close();
+}
+
+
+void Library::insert_sorted(Movie * NewMovie) {
+  if (head == NULL) // If the list is empty
+    { 
+      head = NewMovie;
+      return;
+    }
+
+  // If the new node should be inserted at the beginning
+  if (NewMovie->Title < head->Title)
+    {
+      NewMovie->next = head;
+      head = NewMovie;
+      return;
+    }
+
+  Movie *prev = head;
+  Movie *current = head->next;
+
+  // Traverse the list to find the appropriate position to insert the new node
+  while (current != NULL && NewMovie->Title >= current->Title)
+    {
+      prev = current;
+      current = current->next;
+    }
+
+  // Insert the new node between prev and current
+  prev->next = NewMovie;
+  NewMovie->next = current;
+}
+
+void Library::find_movie(string Query_Title)
+{
+  string returning_movie = "";
+  Movie * ptr = head;
+  if(head == NULL)
+    {
+      cout << "List is empty! Please enter in some movies." << endl;
+      return;
+    }
+  while(ptr != NULL)
+    {
+      if(ptr->Title == Query_Title)
+	{
+	  returning_movie = ptr->Title;
+	  cout << returning_movie << endl;
+	  //return;
+	}
+      ptr = ptr->next;
+    }
 }
