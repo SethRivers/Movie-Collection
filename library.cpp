@@ -31,12 +31,17 @@ Library::~Library()
 
 void Library::load_from_file(string filename)
 {
+  if(filename == "")
+    {
+      cout << "Please enter a file name!" << endl;
+      return;
+    }
   Movie temp;
   ifstream File(filename);
   
   while(getline(File, temp.Title))
     {
-      cout << "Hi" << endl;
+      //cout << "Hi" << endl;
       getline(File, temp.Director_Name);
       getline(File, temp.Format);
       File >> temp.Movie_Runtime >> temp.Year >> temp.Price;
@@ -114,6 +119,7 @@ void Library::push_back(std::string New_Title, std::string New_Director_Name, in
   temp.Price = New_Price;
   temp.Year = New_Year;
   Movie_List.push_back(temp);
+  number_of_movies++;
   cout << "Movie added to the back of the list!" << endl;
 }
 
@@ -127,6 +133,7 @@ void Library::push_front(std::string New_Title, std::string New_Director_Name, i
   temp.Price = New_Price;
   temp.Year = New_Year;
   Movie_List.push_front(temp);
+  number_of_movies++;
   cout << "Movie added to the front of the list!" << endl;
 }
 
@@ -149,3 +156,50 @@ void Library::find_movie(string Query_Title)
 
 }
 
+void Library::find_director(std::string Query_Director)
+{
+ if(number_of_movies <= 0)
+    {
+      cout << "There are no directors in the list to find! Add some movies to the list!" << endl;
+      return;
+    }
+  cout << "List of " << Query_Director << " " << endl;
+  for(it = Movie_List.begin(); it != Movie_List.end(); it++)
+    {
+      if(it -> Director_Name == Query_Director)
+	{
+	  cout << "List item: " << it -> Title << " - " << it -> Director_Name << " - " << it -> Format << endl;
+	}
+    }
+  it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.
+}
+
+void Library::insert_sorted(std::string Sort_Title, std::string Sort_Director_Name, int Sort_Movie_Runtime, std::string Sort_Format, float Sort_Price, int Sort_Year)
+{
+  Movie temp;
+  temp.Title = Sort_Title;
+  temp.Director_Name = Sort_Director_Name;
+  temp.Movie_Runtime = Sort_Movie_Runtime;
+  temp.Format = Sort_Format;
+  temp.Price = Sort_Price;
+  temp.Year = Sort_Year;
+  Movie_List.push_back(temp);
+  Insert_Sort();
+  number_of_movies++;
+}
+
+void Library::store_to_file(string filename)
+{
+  if(filename == "")
+    {
+      cout << "Please enter a file name to write!" << endl;
+      return;
+    }
+  ofstream File(filename + ".txt");
+  it = Movie_List.begin();
+  while(it != Movie_List.end())
+    {
+      File << (it -> Title) << '\n' << (it -> Director_Name) << '\n' << (it -> Format) << '\n' << (it -> Movie_Runtime) << '\n' << (it -> Year) << '\n' << (it -> Price) << '\n' << '\n';
+      it++;
+    }
+}

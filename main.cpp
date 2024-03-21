@@ -24,5 +24,6 @@ int main() {
   object.remove("The Matrix");
   cout << "Removed Item: The Matrix" << endl; 
   object.print();
+  object.store_to_file("library");
   return 0;
 }

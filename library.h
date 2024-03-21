@@ -26,7 +26,7 @@ private:
     int Year;
 
   };
-  std::list<Movie> Movie_List;
+  std::list<Movie> Movie_List; //Declares the Linked list.
   Movie * midpoint;
   int number_of_movies;
   std::list<Movie>::iterator it;
@@ -39,9 +39,10 @@ public:
   void load_from_file(std::string filename);
   void store_to_file(std::string filename);
   void insert_sorted(Movie * NewMovie); //used for when loading in a file.
-  void insert_sorted(std::string Sort_Tile, std::string Sort_Director_Name, int Sort_Movie_Runtime, std::string Sort_Format, float Sort_Price, int Sort_Year);
+  void insert_sorted(std::string Sort_Title, std::string Sort_Director_Name, int Sort_Movie_Runtime, std::string Sort_Format, float Sort_Price, int Sort_Year);
   void Insert_Sort(); //sorts the movies as it is being loaded in.
   void find_movie(std::string Query_Title);
+  void find_director(std::string Query_Director);
   std::string director_search(std::string Query_Director_Name);
   void remove(std::string Query_Title);
   void print();
