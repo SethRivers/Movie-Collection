@@ -8,7 +8,7 @@ CFLAGS = -g -Wall -Wextra -c
 TARGET = library
 
 #Readies $(TARGET) for use in the following code
-all: $(TARGET)
+default: $(TARGET)
 
 #Marks all the files that will be compiled
 $(TARGET):	main.o library.o

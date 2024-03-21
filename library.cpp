@@ -7,152 +7,199 @@
  * 
  */
 
+#include <list>
 #include <iostream>
-#include <iomanip>
 #include <fstream>
 #include <string>
 #include "library.h"
 
+
 using namespace std;
 
+Library::Library()
+{
+  midpoint = NULL;
+  number_of_movies = 0;
+  Movie_List = {}; //creates our list which should be empty of Nodes/Movies.
+}
+Library::~Library()
+{
+  midpoint = NULL;
+  number_of_movies = 0;
+  //TODO: add a destructor for the std::list<Movie> Movie_List
+}
 
-/**
- * 
- *
- * @pre 
- * @post 
- * 
- */
-library::library();
+void Library::load_from_file(string filename)
+{
+  if(filename == "")
+    {
+      cout << "Please enter a file name!" << endl;
+      return;
+    }
+  Movie temp;
+  ifstream File(filename);
+  
+  while(getline(File, temp.Title))
+    {
+      //cout << "Hi" << endl;
+      getline(File, temp.Director_Name);
+      getline(File, temp.Format);
+      File >> temp.Movie_Runtime >> temp.Year >> temp.Price;
+      Movie_List.push_back(temp);
+      File.ignore();
+      File.ignore();
+      number_of_movies++;
+    }
 
+}
+void Library::print()
+{
+  if(number_of_movies <= 0)
+    {
+      cout << "There are no movies in the list to print! Add some movies to the list!" << endl;
+      return;
+    }
+  cout << "List of " << number_of_movies << " items" << endl;
+  for(it = Movie_List.begin(); it != Movie_List.end(); it++)
+    {
+      cout << "List item: " << it -> Title << " - " << it -> Director_Name << " - " << it -> Format << endl;
+    }
+  it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.
+}
+void Library::Insert_Sort() {
+  if(number_of_movies <= 0)
+    {
+      cout << "There are no movies in the list to sort! Add some movies to the list!" << endl;
+      return;
+    }
+    std::list<Movie>::iterator it2;
+    Movie temp;
+    
+    for (it = Movie_List.begin(); it != Movie_List.end(); it++) {
+        it2 = it;
+        it2++; // Move it2 to the next element
+        
+        while (it2 != Movie_List.end()) {
+            if (it->Title >= it2->Title) {
+                temp = *it;
+                *it = *it2;
+                *it2 = temp;
+            }
+            it2++;
+        }
+    }
+}
 
-/**
- * 
- *
- * @param std::string Title 
- * @param std::string Director_Name 
- * @param int Movie_Runtime 
- * @param std::string Format 
- * @param float Price 
- * @param int Year 
- * @pre 
- * @return void 
- * @post 
- * 
- */
-void library::push_back(std::string Title, std::string Director_Name, int Movie_Runtime, std::string Format, float Price, int Year);
+void Library::remove(string Query_Title)
+{
+  if(number_of_movies <= 0)
+    {
+      cout << "There are no movies in the list to delete! Add some movies to the list!" << endl;
+      return;
+    }
+  for(it = Movie_List.begin(); it != Movie_List.end(); it++)
+    {
+      if((it -> Title) == Query_Title)
+	{
+	  Movie_List.erase(it);
+	  number_of_movies--;
+	  return;
+	}
+    }
+  
+}
 
+void Library::push_back(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year)
+{
+  Movie temp;
+  temp.Title = New_Title;
+  temp.Director_Name = New_Director_Name;
+  temp.Movie_Runtime = New_Movie_Runtime;
+  temp.Format = New_Format;
+  temp.Price = New_Price;
+  temp.Year = New_Year;
+  Movie_List.push_back(temp);
+  number_of_movies++;
+  cout << "Movie added to the back of the list!" << endl;
+}
 
-/**
- * 
- *
- * @param std::string Title 
- * @param std::string Director_Name 
- * @param int Movie_Runtime 
- * @param std::string Format 
- * @param float Price 
- * @param int Year 
- * @pre 
- * @return void 
- * @post 
- * 
- */
-void library::push_front(std::string Title, std::string Director_Name, int Movie_Runtime, std::string Format, float Price, int Year);
+void Library::push_front(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year)
+{
+  Movie temp;
+  temp.Title = New_Title;
+  temp.Director_Name = New_Director_Name;
+  temp.Movie_Runtime = New_Movie_Runtime;
+  temp.Format = New_Format;
+  temp.Price = New_Price;
+  temp.Year = New_Year;
+  Movie_List.push_front(temp);
+  number_of_movies++;
+  cout << "Movie added to the front of the list!" << endl;
+}
 
+void Library::find_movie(string Query_Title)
+{
+  if(number_of_movies <= 0)
+    {
+      cout << "There are no movies in the list to find! Add some movies to the list!" << endl;
+      return;
+    }
+  cout << "List of " << Query_Title << " " << endl;
+  for(it = Movie_List.begin(); it != Movie_List.end(); it++)
+    {
+      if(it -> Title == Query_Title)
+	{
+	  cout << "List item: " << it -> Title << " - " << it -> Director_Name << " - " << it -> Format << endl;
+	}
+    }
+  it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.
 
-/**
- * 
- *
- * @param std::string filename 
- * @pre 
- * @return void 
- * @post 
- * 
- */
-void library::load_from_file(std::string filename);
+}
 
+void Library::find_director(std::string Query_Director)
+{
+ if(number_of_movies <= 0)
+    {
+      cout << "There are no directors in the list to find! Add some movies to the list!" << endl;
+      return;
+    }
+  cout << "List of " << Query_Director << " " << endl;
+  for(it = Movie_List.begin(); it != Movie_List.end(); it++)
+    {
+      if(it -> Director_Name == Query_Director)
+	{
+	  cout << "List item: " << it -> Title << " - " << it -> Director_Name << " - " << it -> Format << endl;
+	}
+    }
+  it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.
+}
 
-/**
- * 
- *
- * @param std::stirng filename 
- * @pre 
- * @return void 
- * @post 
- * 
- */
-void library::store_to_file(std::stirng filename);
+void Library::insert_sorted(std::string Sort_Title, std::string Sort_Director_Name, int Sort_Movie_Runtime, std::string Sort_Format, float Sort_Price, int Sort_Year)
+{
+  Movie temp;
+  temp.Title = Sort_Title;
+  temp.Director_Name = Sort_Director_Name;
+  temp.Movie_Runtime = Sort_Movie_Runtime;
+  temp.Format = Sort_Format;
+  temp.Price = Sort_Price;
+  temp.Year = Sort_Year;
+  Movie_List.push_back(temp);
+  Insert_Sort();
+  number_of_movies++;
+}
 
-
-/**
- * 
- *
- * @param std::string Title 
- * @param std::string Director_Name 
- * @param int Movie_Runtime 
- * @param std::string Format 
- * @param float Price 
- * @param int Year 
- * @pre 
- * @return void 
- * @post 
- * 
- */
-void library::insert_sorted(std::string Title, std::string Director_Name, int Movie_Runtime, std::string Format, float Price, int Year);
-
-
-/**
- * 
- *
- * @param std::string Title 
- * @pre 
- * @return string 
- * @post 
- * 
- */
-string library::find_movie(std::string Title);
-
-
-/**
- * 
- *
- * @param std::string Director_Name 
- * @pre 
- * @return string 
- * @post 
- * 
- */
-string library::director_search(std::string Director_Name);
-
-
-/**
- * 
- *
- * @param std::string Title 
- * @pre 
- * @return void 
- * @post 
- * 
- */
-void library::remove(std::string Title);
-
-
-/**
- * 
- *
- * @pre 
- * @return void 
- * @post 
- * 
- */
-void library::print();
-
-
-/**
- * 
- *
- * @pre 
- * @post 
- * 
- */
-library::~library();
+void Library::store_to_file(string filename)
+{
+  if(filename == "")
+    {
+      cout << "Please enter a file name to write!" << endl;
+      return;
+    }
+  ofstream File(filename + ".txt");
+  it = Movie_List.begin();
+  while(it != Movie_List.end())
+    {
+      File << (it -> Title) << '\n' << (it -> Director_Name) << '\n' << (it -> Format) << '\n' << (it -> Movie_Runtime) << '\n' << (it -> Year) << '\n' << (it -> Price) << '\n' << '\n';
+      it++;
+    }
+}
