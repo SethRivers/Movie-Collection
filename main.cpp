@@ -15,6 +15,11 @@
 using namespace std;
 
 int main() {
-
+  Library object;
+  string file = "Movie-List.txt";
+  object.load_from_file(file);
+  object.print();
+  object.Insert_Sort();
+  object.print();
   return 0;
 }
