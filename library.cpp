@@ -74,3 +74,17 @@ void Library::Insert_Sort() {
         }
     }
 }
+
+void Library::remove(string Query_Title)
+{
+  for(it = Movie_List.begin(); it != Movie_List.end(); it++)
+    {
+      if((it -> Title) == Query_Title)
+	{
+	  Movie_List.erase(it);
+	  number_of_movies--;
+	  return;
+	}
+    }
+  
+}

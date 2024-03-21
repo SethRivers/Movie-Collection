@@ -21,5 +21,8 @@ int main() {
   object.print();
   object.Insert_Sort();
   object.print();
+  object.remove("The Matrix");
+  cout << "Removed Item: The Matrix" << endl; 
+  object.print();
   return 0;
 }
