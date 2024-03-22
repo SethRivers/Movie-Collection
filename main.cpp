@@ -9,6 +9,7 @@
 
 
 #include <iostream>
+#include <list>
 #include "library.h"
 
 using namespace std;
@@ -35,10 +36,10 @@ int main() {
     cin>>menu;
     //loads the file 
     if (menu == "1"){
-      cout<<"Please input the name of the Movie List File you wish to use: ";
+      cout<<">Please input the name of the Movie List File you wish to use (example: MovieList.txt): ";
       cin>>input;
       a.load_from_file(input);
-      cout<<"Movie List Data read and ready to view!"<<endl;
+      cout<<">Movie List Data read and ready to view!"<<endl;
     }
     //Prints the currently loaded movie-list data out to the user
     else if (menu == "2"){
@@ -47,23 +48,25 @@ int main() {
     }
     //This allows the user to write the current movie list data they have on hand to an existing file. works with empty files as well
     else if (menu == "3"){
-      cout<<"What file do you want to write to?: ";
+      cout<<">What file do you want to write to?(Example: MovieList.txt):";
       cin>>input;
       a.store_to_file(input);
       cout<<endl; 
     }
     //Allows the user to search for a Movie via its name
     else if (menu == "4"){ 
-      cout<<"What is the name of the film you wish to know more of?: ";
+      cout<<">What is the name of the film you wish to know more of?: ";
       cin>>input; 
-      a.find_movie(input); 
+      a.find_movie(input);
+      cout<<endl;
     }
     //Lets the user find a movie by the director
     //note for James: we may need to set something up to check if there are multiple movies by that director 
     else if (menu == "5"){
-      cout<<"Which Director would you like to search for?: "<<endl; 
+      cout<<">Which Director would you like to search for?: "<<endl; 
       cin>>input;
       a.find_director(input);
+      cout<<endl;
     }
     //Lets the user add a movie to the Movie List Data
     else if (menu == "6"){
@@ -82,31 +85,40 @@ int main() {
       //price of acquisition
       float price = 0.00; 
 
-      cout<<"Please input the information of the film you wish to add in this order:\nName\nDirector Name\nMovie Format\nMovie Runtime(in minutes)\nThe Year it Released\nThe Price of Acquisition"<<endl; 
-      
+      cout<<">Please input the information of the film you wish to add in this order:"<<endl; 
+      cout<<"*Movie Title:\n - ";
       cin>>title;
+      cout<<"*The Director's Name:\n - ";
       cin>>director;
+      cout<<"*The Movie Format (Digital, DVD, Blu-ray, or VHS):\n - ";
       cin>>format;
+      cout<<"*The Movie's runtime (in minutes):\n - ";
       cin>>runtime;
+      cout<<"*The Year The Movie Aired:\n - ";
       cin>>year;
+      cout<<"*The Cost of The Film's Acquisition:\n - ";
       cin>>price; 
       a.insert_sorted(title, director, runtime, format, price, year);
       //note for myself/James: add a failstate. Likely a nested if statement 
-      cout<<"Movie Added!";
+      cout<<">Movie Successfully Added!"<<endl;
     }
     //allows someone to remove a movie from the movie data 
     else if (menu == "7"){
-      cout<<"Please provide the name of the movie you want to remove:\nWarning! This can not be undone!";
+      cout<<">Please provide the name of the movie you want to remove: ";
       cin>>input;
       a.remove(input);
-      cout<<"Movie removed!"<<endl;
-
-      //note for myself/james: add a failsafe/'are you sure?' redundency
+      cout<<input<<"succesfully removed!"<<endl;
     }
     //if anything other than the numbers 1 - 8 are chosen, it runs this outcome instead. 
-    else {
-      cout<<"Invalid Option, Please try again: ";
+
+    else if (menu == "8") {
+      return 0;
 	}
+
+    else{
+      cout<<"Invalid Option, Please try again!\n"<<endl;
+	}
+   
   }
   
   return 0;
