@@ -16,57 +16,57 @@ using namespace std;
 int main() {
   Library a;
   //menu input
-  char menu;
+  string menu = "";
   //user input 
   string input = "";
 
   //The Menu
   cout<<"Welcome to The Daemon Bytes Movie database! Please input the corresponding number for the option you wish to use:"<<endl;
-  while (menu != '8'){
+  while (menu != "8"){
     cout<<"1 Read the Movie List from a file"<<endl;
-    cout<<"2 Write the Movie List  to a file"<<endl;
-    cout<<"3 Print the Movie List"<<endl;
+    cout<<"2 Print The Movie List"<<endl;
+    cout<<"3 Write the Movie List to a file"<<endl;
     cout<<"4 Find Movie"<<endl;
     cout<<"5 Director Search"<<endl;
-    cout<<"6 add a Movie"<<endl;
+    cout<<"6 Add a Movie"<<endl;
     cout<<"7 Delete a Movie"<<endl;
     cout<<"8 Exit this program"<<endl<<endl;
 
     cin>>menu;
     //loads the file 
-    if (menu == '1'){
+    if (menu == "1"){
       cout<<"Please input the name of the Movie List File you wish to use: ";
       cin>>input;
       a.load_from_file(input);
       cout<<"Movie List Data read and ready to view!"<<endl;
     }
+    //Prints the currently loaded movie-list data out to the user
+    else if (menu == "2"){
+      a.print();
+      cout<<endl;
+    }
     //This allows the user to write the current movie list data they have on hand to an existing file. works with empty files as well
-    else if (menu == '2'){
+    else if (menu == "3"){
       cout<<"What file do you want to write to?: ";
       cin>>input;
       a.store_to_file(input);
       cout<<endl; 
     }
-    //Prints the currently loaded movie-list data out to the user
-    else if (menu == '3'){
-      a.print();
-      cout<<endl;
-    }
     //Allows the user to search for a Movie via its name
-    else if (menu == '4'){ 
+    else if (menu == "4"){ 
       cout<<"What is the name of the film you wish to know more of?: ";
       cin>>input; 
-      cout<<a.find_movie(input)<<endl; 
+      a.find_movie(input); 
     }
     //Lets the user find a movie by the director
     //note for James: we may need to set something up to check if there are multiple movies by that director 
-    else if (menu == '5'){
+    else if (menu == "5"){
       cout<<"Which Director would you like to search for?: "<<endl; 
       cin>>input;
-      cout<<a.director_search(input)<<endl;
+      a.find_director(input);
     }
     //Lets the user add a movie to the Movie List Data
-    else if (menu == '6'){
+    else if (menu == "6"){
       //user input (varied)
 
       //movie name
@@ -82,7 +82,7 @@ int main() {
       //price of acquisition
       float price = 0.00; 
 
-      cout<<"Please input the information of the film you wish to add in this order:\nName\nDirector Name\nMovie Format\nMovie Runtime(in minutes)\nThe Year it Released\nThe Price of Acquisition"; 
+      cout<<"Please input the information of the film you wish to add in this order:\nName\nDirector Name\nMovie Format\nMovie Runtime(in minutes)\nThe Year it Released\nThe Price of Acquisition"<<endl; 
       
       cin>>title;
       cin>>director;
@@ -95,7 +95,7 @@ int main() {
       cout<<"Movie Added!";
     }
     //allows someone to remove a movie from the movie data 
-    else if (menu == '7'){
+    else if (menu == "7"){
       cout<<"Please provide the name of the movie you want to remove:\nWarning! This can not be undone!";
       cin>>input;
       a.remove(input);
