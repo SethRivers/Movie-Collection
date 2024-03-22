@@ -84,8 +84,9 @@ int main() {
       int year= 0;
       //price of acquisition
       float price = 0.00; 
-
+      
       cout<<">Please input the information of the film you wish to add in this order:"<<endl; 
+
       cout<<"*Movie Title:\n - ";
       cin>>title;
       cout<<"*The Director's Name:\n - ";

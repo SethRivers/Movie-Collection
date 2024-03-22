@@ -150,7 +150,7 @@ void Library::find_movie(string Query_Title)
     {
       if(it -> Title == Query_Title)
 	{
-	  cout <<"\n- "<< it -> Title << "\n- " << it -> Director_Name << "\n- " << it -> Format << "\n- " << it -> Movie_Runtime << "\n- " << it -> Year << "\n- " << it -> Price << endl <<endl;
+	  cout <<"\n* "<< it -> Title << "\n- " << it -> Director_Name << "\n- " << it -> Format << "\n- " << it -> Movie_Runtime << " Minutes\n- " << it -> Year << "\n- $" << it -> Price << endl <<endl;
 	}
     }
   it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.
@@ -169,8 +169,9 @@ void Library::find_director(std::string Query_Director)
     {
       if(it -> Director_Name == Query_Director)
 	{
-	  cout <<"\n- "<< it -> Title << "\n- " << it -> Director_Name << "\n- " << it -> Format << "\n- " << it -> Movie_Runtime << "\n- " << it -> Year << "\n- " << it -> Price << endl <<endl;
+	  cout <<"\n* "<< it -> Title << "\n- " << it -> Director_Name << "\n- " << it -> Format << "\n- " << it -> Movie_Runtime << " Minutes \n- " << it -> Year << "\n- $" << it -> Price << endl;
 	}
+      cout << endl;
     }
   it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.
 }
