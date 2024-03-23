@@ -33,7 +33,7 @@ void Library::load_from_file(string filename)
 {
   if(filename == "")
     {
-      cout << "Please enter a file name!" << endl;
+      cout << ">Please enter a file name!" << endl;
       return;
     }
   Movie temp;
@@ -41,7 +41,6 @@ void Library::load_from_file(string filename)
 
   while(getline(File, temp.Title))
     {
-      //cout << "Hi" << endl;
       getline(File, temp.Director_Name);
       getline(File, temp.Format);
       File >> temp.Movie_Runtime >> temp.Year >> temp.Price;
@@ -56,10 +55,10 @@ void Library::print()
 {
   if(number_of_movies <= 0)
     {
-      cout << "There are no movies in the list to print! Please select a new list, or maybe even add some movies to this one!\n" << endl;
+      cout << ">There are no movies in the list to print! Please select a new list, or maybe even add some movies to this one!\n" << endl;
       return;
     }
-  cout << "This list contains " << number_of_movies << " films!" << endl;
+  cout << ">This list contains " << number_of_movies << " films!" << endl;
   for(it = Movie_List.begin(); it != Movie_List.end(); it++)
     {
       cout << "* " << it -> Title << "\n - " << it -> Director_Name << "\n - " << it -> Format << endl;
@@ -70,7 +69,7 @@ void Library::print()
 void Library::Insert_Sort() {
   if(number_of_movies <= 0)
     {
-      cout << "There are no movies in the list to sort! Add some movies to the list!\n" << endl;
+      cout << ">There are no movies in the list to sort! Add some movies to the list!\n" << endl;
       return;
     }
   std::list<Movie>::iterator it2;
@@ -95,7 +94,7 @@ void Library::remove(string Query_Title)
 {
   if(number_of_movies <= 0)
     {
-      cout << "There are no movies in the list to delete!\n" << endl;
+      cout << ">There are no movies in the list to delete!\n" << endl;
       return;
     }
   for(it = Movie_List.begin(); it != Movie_List.end(); it++)
@@ -104,8 +103,13 @@ void Library::remove(string Query_Title)
 	{
 	  Movie_List.erase(it);
 	  number_of_movies--;
+	  cout<<">"<<Query_Title<<" succesfully removed!\n"<<endl;
 	  return;
 	}
+      else {
+	cout<<">That Movie is not in this list!\n"<<endl;
+	return; 
+      }
     }
 
 }
@@ -121,7 +125,7 @@ void Library::push_back(std::string New_Title, std::string New_Director_Name, in
   temp.Year = New_Year;
   Movie_List.push_back(temp);
   number_of_movies++;
-  cout << "Movie added to the back of the list!\n" << endl;
+  cout << ">Movie added to the back of the list!\n" << endl;
 }
 
 void Library::push_front(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year)
@@ -135,14 +139,14 @@ void Library::push_front(std::string New_Title, std::string New_Director_Name, i
   temp.Year = New_Year;
   Movie_List.push_front(temp);
   number_of_movies++;
-  cout << "\nMovie succesfully added to the front of the list! If there is some data that looks incorrect, you may need to remove the entry and resubmit it!" << endl;
+  cout << "\n>Movie succesfully added to the front of the list! If there is some data that looks incorrect, you may need to remove the entry and resubmit it!" << endl;
 }
 
 void Library::find_movie(string Query_Title)
 {
   if(number_of_movies <= 0)
     {
-      cout << "\nThere are no movies in this list! Please select a new list, or add some new entries to this one!\n" << endl;
+      cout << "\n>There are no movies in this list! Please select a new list, or add some new entries to this one!\n" << endl;
       return;
     }
   cout << Query_Title << endl;
@@ -161,10 +165,10 @@ void Library::find_director(std::string Query_Director)
 {
   if(number_of_movies <= 0)
     {
-      cout << "\nThere are no movies in this list! Please select a new list, or add some new entries to this one!\n" << endl;
+      cout << "\n>There are no movies in this list! Please select a new list, or add some new entries to this one!\n" << endl;
       return;
     }
-  cout << "List of " << Query_Director << " " << endl;
+  cout << ">Here is a list of " << Query_Director << "'s films" << endl;
   for(it = Movie_List.begin(); it != Movie_List.end(); it++)
     {
       if(it -> Director_Name == Query_Director)
@@ -186,15 +190,15 @@ void Library::insert_sorted(std::string Sort_Title, std::string Sort_Director_Na
   temp.Price = Sort_Price;
   temp.Year = Sort_Year;
   Movie_List.push_back(temp);
-  Insert_Sort();
   number_of_movies++;
+  Insert_Sort();
 }
 
 void Library::store_to_file(string filename)
 {
   if(filename == "")
     {
-      cout << "Please enter a file name to write to!: " << endl;
+      cout << ">Please enter a file name to write to!: " << endl;
       return;
     }
   ofstream File(filename);
