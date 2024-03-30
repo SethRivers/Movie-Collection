@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Daemon Bytes
  * @date 2024-03-13
- * @brief Wip
+ * @brief The main driver for the Movie List
  * 
  * 
  */
@@ -15,15 +15,144 @@
 using namespace std;
 
 int main() {
-  Library object;
-  string file = "Movie-List.txt";
-  object.load_from_file(file);
-  object.print();
-  object.Insert_Sort();
-  object.print();
-  object.remove("The Matrix");
-  cout << "Removed Item: The Matrix" << endl; 
-  object.print();
-  object.store_to_file("library");
+  Library a;
+  //menu input
+  int menu = 0;
+  //user input 
+  string input = "";
+  
+  //The Menu
+  cout<<"Welcome to The Daemon Bytes Movie database! Please input the corresponding number for the option you wish to use:"<<endl;
+  while (menu != 8){
+    cout<<"1 Read the Movie List from a file"<<endl;
+    cout<<"2 Print The Movie List"<<endl;
+    cout<<"3 Write The Movie List to a file"<<endl;
+    cout<<"4 Find Movie"<<endl;
+    cout<<"5 Director Search"<<endl;
+    cout<<"6 Add a Movie"<<endl;
+    cout<<"7 Delete a Movie"<<endl;
+    cout<<"8 Exit this program"<<endl<<endl;
+
+    cout << "Please enter an option: ";
+    cin>>menu;
+    if(cin.fail()) //Logic Guard, protects the user from enter non-numerical values.
+      {
+	cin.clear();
+	cin.ignore(10000, '\n');
+	menu = 0;
+	cout << "Please enter valid options. Numerical numbers only!" << endl;
+      }
+    //loads the file 
+    if (menu == 1){
+      cout<<">Please input the name of the Movie List File you wish to use (example: MovieList.txt): ";
+      cin>>input;
+      a.load_from_file(input);
+      cout<<">Movie List Data read and ready to view!\n"<<endl;
+    }
+    //Prints the currently loaded movie-list data out to the user
+    else if (menu == 2){
+      a.print();
+      cout<<endl;
+    }
+    //This allows the user to write the current movie list data they have on hand to an existing file. works with empty files as well
+    else if (menu == 3){
+      cout<<">What file do you want to write to?(Example: MovieList.txt):";
+      cin>>input;
+      a.store_to_file(input);
+      cout<<"List written to file!\n"<<endl; 
+    }
+    //Allows the user to search for a Movie via its name
+    else if (menu == 4){ 
+      cout<<">What is the name of the film you wish to know more of?: ";
+      cin.ignore();
+      getline(cin, input);
+      a.find_movie(input);
+      cout<<endl;
+    }
+    //Lets the user find a movie by the director 
+    else if (menu == 5){
+      cout<<">Which Director would you like to search for?: ";  
+      cin.ignore();
+      getline(cin, input); 
+      a.find_director(input);
+      cout<<endl;
+    }
+    //Lets the user add a movie to the Movie List Data
+    else if (menu == 6){
+      //user input (varied)
+      //movie name
+      string title = "";
+      //director name
+      string director = "";
+      //movie format
+      string format = "";
+      //movie runtime (in minutes) 
+      int runtime = 0;
+      //year of release
+      int year= 0;
+      //price of acquisition
+      float price = 0.00; 
+      //push option
+      int choice = 0; 
+      
+      cout<<">Please input the information of the film you wish to add in this order:"<<endl; 
+
+      cin.ignore();
+      cout<<"*Movie Title:\n - ";
+      getline(cin, title);
+      cout<<"*The Director's Name:\n - ";
+      getline(cin, director);
+      cout<<"*The Movie Format (Digital, DVD, Blu-ray, or VHS):\n - ";
+      cin>>format;
+      cout<<"*The Movie's runtime (in minutes):\n - ";
+      cin>>runtime;
+      cout<<"*The Year The Movie Aired:\n - ";
+      cin>>year;
+      cout<<"*The Cost of The Film's Acquisition:\n - ";
+      cin>>price; 
+      cout<<">Finally, select how you'd like your Movie be added to the list:\n*1: Auto sort.\n*2: Push To Front.\n*3: Push To Middle.\n*4: Push To Back."<<endl;
+      //auto sort
+      while(choice <= 0 or choice >= 5)
+	{
+	  cin >> choice;
+	  if (choice == 1){
+	    a.insert_sorted(title, director, runtime, format, price, year);
+	    cout<<">Movie Successfully Added To The List!\n"<<endl;
+	  }
+	  //Push To Front
+	  else if (choice == 2){
+	    a.push_front(title, director, runtime, format, price, year);
+	    cout<<">Movie Successfully Added To The List!\n!"<<endl;
+	  }
+	  //Push To Middle
+	  else if (choice == 3){
+	    a.push_middle(title, director, runtime, format, price, year);
+	    cout<<">Movie Successfully Added To The List!\n"<<endl;
+	  }
+	  //Push To Back
+	  else if (choice == 4){
+	    a.push_back(title, director, runtime, format, price, year);
+	    cout<<">Movie Successfully Added To The List!\n"<<endl;
+	  }
+	  else {
+	    cout<<">Invalid Option! Please enter a option here: "<<endl;
+	  }
+	} 
+    }
+    //allows someone to remove a movie from the movie data 
+    else if (menu == 7){
+      cout<<">Please provide the name of the movie you want to remove: ";
+      cin.ignore();
+      getline(cin, input);
+      a.remove(input);
+    }
+    //if anything other than the numbers 1 - 8 are chosen, it runs this outcome instead.
+
+    else if (menu <= 0 or menu > 8) {
+      cout<<">Invalid Option, Please try again!\n"<<endl;
+    }
+   
+  }
+  
   return 0;
 }

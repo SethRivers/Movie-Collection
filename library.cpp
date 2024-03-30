@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 #include "library.h"
 
 
@@ -62,7 +63,13 @@ void Library::print()
   cout << "List of " << number_of_movies << " items" << endl;
   for(it = Movie_List.begin(); it != Movie_List.end(); it++)
     {
-      cout << "List item: " << it -> Title << " - " << it -> Director_Name << " - " << it -> Format << endl;
+      cout << "Title: " << it -> Title << endl;
+      cout << "Director: " <<  it -> Director_Name << endl;
+      cout << "Format: " << it -> Format << endl;
+      cout << "Runtime: " << it -> Movie_Runtime << endl;
+      cout << "Year: " << it -> Year << endl;
+      cout << "Price: " << setprecision(2) << it -> Price << setprecision(0) << endl;
+      cout << endl;
     }
   it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.
 }
@@ -72,22 +79,22 @@ void Library::Insert_Sort() {
       cout << "There are no movies in the list to sort! Add some movies to the list!" << endl;
       return;
     }
-    std::list<Movie>::iterator it2;
-    Movie temp;
+  std::list<Movie>::iterator it2;
+  Movie temp;
     
-    for (it = Movie_List.begin(); it != Movie_List.end(); it++) {
-        it2 = it;
-        it2++; // Move it2 to the next element
+  for (it = Movie_List.begin(); it != Movie_List.end(); it++) {
+    it2 = it;
+    it2++; // Move it2 to the next element
         
-        while (it2 != Movie_List.end()) {
-            if (it->Title >= it2->Title) {
-                temp = *it;
-                *it = *it2;
-                *it2 = temp;
-            }
-            it2++;
-        }
+    while (it2 != Movie_List.end()) {
+      if (it->Title >= it2->Title) {
+	temp = *it;
+	*it = *it2;
+	*it2 = temp;
+      }
+      it2++;
     }
+  }
 }
 
 void Library::remove(string Query_Title)
@@ -122,7 +129,42 @@ void Library::push_back(std::string New_Title, std::string New_Director_Name, in
   number_of_movies++;
   cout << "Movie added to the back of the list!" << endl;
 }
+void Library::push_middle(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year)
+{
+  Movie temp;
+  it = Movie_List.begin();
+  int temp_movie_count = number_of_movies/2;
+  temp.Title = New_Title;
+  temp.Director_Name = New_Director_Name;
+  temp.Movie_Runtime = New_Movie_Runtime;
+  temp.Format = New_Format;
+  temp.Price = New_Price;
+  temp.Year = New_Year;
 
+  if(number_of_movies <= 0)
+    {
+      //if there are no movies in the list.
+      Movie_List.push_back(temp);
+      number_of_movies++;
+      return;
+    }
+  if(number_of_movies <= 1)
+    {
+      //if there is only one movie in the list. since there is no middle.
+      Movie_List.push_back(temp);
+      number_of_movies++;
+      return;
+    }
+  
+  for(int i = 0; i <= temp_movie_count; i++)
+    {
+      //just moves the iterator to the correct spot in the list.
+      it++;
+    }
+  Movie_List.insert(it, temp);
+  number_of_movies++;
+  cout << "Movie added to the middle of the list!" << endl;
+}
 void Library::push_front(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year)
 {
   Movie temp;
@@ -158,7 +200,7 @@ void Library::find_movie(string Query_Title)
 
 void Library::find_director(std::string Query_Director)
 {
- if(number_of_movies <= 0)
+  if(number_of_movies <= 0)
     {
       cout << "There are no directors in the list to find! Add some movies to the list!" << endl;
       return;
