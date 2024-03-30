@@ -11,7 +11,7 @@ Seth: The Menu was designed to work off of a system similar to those automated p
 The header was designed to work around the std::list library so there would be no need to create a linked list from the ground up.
 
 **Implementation:**
-James:
+James: Used the std::list library to implimement the Movie List. All the decisions are within the parameters of the assignment. Most of the methods used are from the std::list and any alternative approaches are based on logical necessity for the program.
 
 # How To Run The program
 
