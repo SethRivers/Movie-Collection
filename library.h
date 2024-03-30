@@ -35,6 +35,7 @@ public:
   Library();
   ~Library();
   void push_back(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year);
+  void push_middle(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year);
   void push_front(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year);
   void load_from_file(std::string filename);
   void store_to_file(std::string filename);
