@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 #include "library.h"
 
 
@@ -62,7 +63,13 @@ void Library::print()
   cout << "List of " << number_of_movies << " items" << endl;
   for(it = Movie_List.begin(); it != Movie_List.end(); it++)
     {
-      cout << "List item: " << it -> Title << " - " << it -> Director_Name << " - " << it -> Format << endl;
+      cout << "Title: " << it -> Title << endl;
+      cout << "Director: " <<  it -> Director_Name << endl;
+      cout << "Format: " << it -> Format << endl;
+      cout << "Runtime: " << it -> Movie_Runtime << endl;
+      cout << "Year: " << it -> Year << endl;
+      cout << "Price: " << setprecision(2) << it -> Price << setprecision(0) << endl;
+      cout << endl;
     }
   it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.
 }
