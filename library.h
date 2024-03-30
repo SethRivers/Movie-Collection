@@ -33,168 +33,172 @@ private:
 
 public:
 
+
 /**
- * The constructor for the program
+ * The Constructor for the Program
  *
  * @pre 
- * @post 
+ * @post Movie_list, midpoint, and number_of_movies will all be initialized and ready for use. 
  * 
  */
   Library();
 
 /**
- * The destructor of the program
+ * The Destructor for the Program
  *
- * @pre 
- * @post 
+ * @pre The variables midpoint and numbe_of_movies to be initialized
+ * @post the variables are returned to their base values 
  * 
  */
   ~Library();
 
 /**
- * pushes movie data to the back of the list
+ * Pushes movie data to the back of the list
  *
- * @param std::string New_Title Movie title
- * @param std::string New_Director_Name director name
- * @param int New_Movie_Runtime Movie Runtime in minutes
- * @param std::string New_Format Movie Format
- * @param float New_Price price of acquistion 
- * @param int New_Year year of release
- * @pre 
+ * @param std::string New_Title A string to hold the name of the film
+ * @param std::string New_Director_Name a string to hold the name of the film's director
+ * @param int New_Movie_Runtime a integar to hold the film's runtime (in minutes)
+ * @param std::string New_Format a string to hold the movie format
+ * @param float New_Price a float to hold the movie price 
+ * @param int New_Year a integar to hold the year the film released
+ * @pre there must be data for the movie name, director name, movie runtime, movie format, movie price, and movie year
  * @return void 
- * @post 
+ * @post new movie data is put into the back of the movie list
  * 
  */
   void push_back(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year);
 
 /**
+ * Pushes movie data to the middle of the list
+ *
+ * @param std::string New_Title A string to hold the name of the film
+ * @param std::string New_Director_Name a string to hold the name of the film's director
+ * @param int New_Movie_Runtime a integar to hold the film's runtime (in minutes)
+ * @param std::string New_Format a string to hold the movie format
+ * @param float New_Price a float to hold the movie price
+ * @param int New_Year a integar to hold the year the film released
+ * @pre there must be data for the movie name, director name, movie runtime, movie format, movie price, and movie year
+ * @return void
+ * @post new movie data is put into the middle of the movie list
+ *
+ */
+  void push_middle(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year);
+
+/**  
  * Pushes movie data to the front of the list
  *
- * @param std::string New_Title Movie Title
- * @param std::string New_Director_Name Director Name
- * @param int New_Movie_Runtime Movie Runtime in minutes
- * @param std::string New_Format Movie Format 
- * @param float New_Price price of acquisiton 
- * @param int New_Year year of release
- * @pre 
- * @return void 
- * @post 
- * 
+ * @param std::string New_Title A string to hold the name of the film
+ * @param std::string New_Director_Name a string to hold the name of the film's director
+ * @param int New_Movie_Runtime a integar to hold the film's runtime (in minutes)
+ * @param std::string New_Format a string to hold the movie format 
+ * @param float New_Price a float to hold the movie price
+ * @param int New_Year a integar to hold the year the film released
+ * @pre there must be data for the movie name, director name, movie runtime, movie format, movie price and movie year
+ * @return void
+ * @post new movie data is put into the front of the movie list
+ *
  */
   void push_front(std::string New_Title, std::string New_Director_Name, int New_Movie_Runtime, std::string New_Format, float New_Price, int New_Year);
 
 
 /**
- * loads the movie list from a file full of data
+ * Loads data from a pre-existing file into the list
  *
- * @param std::string filename String that holds a file-name
- * @pre 
+ * @param std::string filename a string that holds the name of a file 
+ * @pre A filename must be given through the menu in main
  * @return void 
- * @post 
+ * @post the data inside the file should be loaded into the movie list
  * 
  */
   void load_from_file(std::string filename);
 
 
 /**
- * Pushes data to the file 
+ * Stores the data from a movie list into a file
  *
- * @param std::string filename holds the name of the file
- * @pre 
+ * @param std::string filename a string that holds the name of a file
+ * @pre there must be a movie list available to store. It can be blank, however. 
  * @return void 
- * @post 
+ * @post Movie list data stored to the file listed in filename - maybe even making a new file in the process
  * 
  */
   void store_to_file(std::string filename);
 
 
 /**
- * sorts the movie list data when a file is loaded in
+ * part 1 of the movie sorting process. It loads the data up into temp variables, and calls insert_sort
  *
- * @param Movie * NewMovie 
- * @pre 
+ * @param std::string Sort_Title string to hold the movie title
+ * @param std::string Sort_Director_Name string to hold director name
+ * @param int Sort_Movie_Runtime integar to hold movie runtime(in minutes)
+ * @param std::string Sort_Format string to hold movie format
+ * @param float Sort_Price float to hold price of acquisition 
+ * @param int Sort_Year integar to hold release year
+ * @pre there must be atleast 1 movie's worth of data in the list
  * @return void 
- * @post 
- * 
- */
-  void insert_sorted(Movie * NewMovie); //used for when loading in a file.
-
-
-/**
- * sorts the movie data provided to it 
- *
- * @param std::string Sort_Title 
- * @param std::string Sort_Director_Name 
- * @param int Sort_Movie_Runtime 
- * @param std::string Sort_Format 
- * @param float Sort_Price 
- * @param int Sort_Year 
- * @pre 
- * @return void 
- * @post 
+ * @post data is pushed to insert_sort, and data is sorted
  * 
  */
   void insert_sorted(std::string Sort_Title, std::string Sort_Director_Name, int Sort_Movie_Runtime, std::string Sort_Format, float Sort_Price, int Sort_Year);
 
 
 /**
- * Sorts the movie list data when a file is loaded in 
+ * Part 2 of the sorting process. Takes the temp data and sorts everything in the list
  *
- * @pre 
+ * @pre insert_sorted must be called and have eligible data loaded into it
  * @return void 
- * @post 
+ * @post the sorted list is ready to be viewed, or user is notified of there being no movies
  * 
  */
   void Insert_Sort(); //sorts the movies as it is being loaded in.
 
 
 /**
- * finds the data for a movie you request by name
+ * Searches the list for a movie's data via its name
  *
- * @param std::string Query_Title 
- * @pre 
+ * @param std::string Query_Title a string holding the name of the movie 
+ * @pre The user must request a movie to search for
  * @return void 
- * @post 
+ * @post the data of the movie is printed for the user, or the user is notified of there being no matching movie
  * 
  */
   void find_movie(std::string Query_Title);
 
 
 /**
- * Locates movie data based off of the director you input 
+ * searches the list for a movie's data via the name of its director
  *
- * @param std::string Query_Director 
- * @pre 
+ * @param std::string Query_Director a string holding the name of the director
+ * @pre the user must request a director to search for
  * @return void 
- * @post 
+ * @post the Movies directed by the p.o.i. is printed for the user to view, or they are notified that there are no films by them in the list
  * 
  */
   void find_director(std::string Query_Director);
-
+  
 
 /**
- * removes requested movie data from the list
+ * removes a movie's data from the list
  *
- * @param std::string Query_Title 
- * @pre 
+ * @param std::string Query_Title a string that holds the name of the movie
+ * @pre the user must request the deletion of a film
  * @return void 
- * @post 
+ * @post the requested movie is removed from the list, or the user is notified that there is no movie by that name to delete
  * 
  */
   void remove(std::string Query_Title);
 
 
 /**
- * Prints the movie data from the list 
+ * prints the movie list for the user to see
  *
- * @pre 
+ * @pre there must be a list active to print, but it can be empty
  * @return void 
- * @post 
+ * @post prints the movie list data, or lets the user know they should either load a list or make a new one
  * 
  */
   void print();
   
-
 };
 
 
