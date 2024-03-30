@@ -68,7 +68,7 @@ void Library::print()
       cout << "Format: " << it -> Format << endl;
       cout << "Runtime: " << it -> Movie_Runtime << endl;
       cout << "Year: " << it -> Year << endl;
-      cout << "Price: " << setprecision(2) << it -> Price << setprecision(0) << endl;
+      cout << "Price: " << setprecision(5) << it -> Price  << setprecision(0) << endl;
       cout << endl;
     }
   it = Movie_List.begin(); //To avoid possible errors, we should always point to the head of the list.

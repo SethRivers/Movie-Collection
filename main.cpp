@@ -44,7 +44,7 @@ int main() {
       }
     //loads the file 
     if (menu == 1){
-      cout<<">Please input the name of the Movie List File you wish to use (example: MovieList.txt): ";
+      cout<<">Please input the name of the Movie List File you wish to use (example: Movie-List.txt): ";
       cin>>input;
       a.load_from_file(input);
       cout<<">Movie List Data read and ready to view!\n"<<endl;
